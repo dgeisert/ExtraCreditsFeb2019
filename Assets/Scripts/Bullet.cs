@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : Attack
 {
     public float speed = 5;
+
     void Start()
     {
+        transform.SetParent(null);
     }
 
     // Update is called once per frame
@@ -16,10 +18,11 @@ public class Bullet : MonoBehaviour
     }
 
 
-    void OnCollisionEnter(Collision col){
-        Player p = col.collider.GetComponent<Player>();
-        if(p){
-            p.GameOver();
+    void OnCollisionEnter(Collision col)
+    {
+        Enemy e = col.collider.GetComponent<Enemy>();
+        if(e){
+            e.Hit(damage);
         }
         Destroy(gameObject);
     }
