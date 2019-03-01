@@ -16,6 +16,9 @@ public class Player : MonoBehaviour
     public Weapon weapon;
     Weapon toEquip;
     float weaponInteractTime;
+    public float health = 3;
+    public float maxHealth = 3;
+    bool dash = false;
     void Start()
     {
         instance = this;
@@ -23,7 +26,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        bool dash = (lastDash + dashDuration > Time.time);
+        dash = (lastDash + dashDuration > Time.time);
         dashLine.SetActive(lastDash + dashDuration * 5 > Time.time);
         Vector3 move = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized
         * speed * Time.fixedDeltaTime * (dash ? dashSpeed : 1);
@@ -80,6 +83,18 @@ public class Player : MonoBehaviour
         {
             toEquip = w;
             weaponInteractTime = Time.time;
+        }
+    }
+
+    public void Hit()
+    {
+        if (!dash)
+        {
+            health--;
+            if (health <= 0)
+            {
+                GameOver();
+            }
         }
     }
 }

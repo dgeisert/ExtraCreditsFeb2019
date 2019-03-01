@@ -14,13 +14,13 @@ public class Weapon : MonoBehaviour
     {
         if (left && lastLeft + cooldownLeft < Time.time && lastRight + cooldownLeft < Time.time && leftAttacks.Length > 0)
         {
-            lastLeft = Time.time;
             LeftAttack();
+            lastLeft = Time.time;
         }
         if (right && lastRight + cooldownRight < Time.time && lastLeft + cooldownLeft < Time.time && rightAttacks.Length > 0)
         {
-            lastRight = Time.time;
             RightAttack();
+            lastRight = Time.time;
         }
     }
 

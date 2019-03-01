@@ -16,6 +16,12 @@ public class Attack : MonoBehaviour
         Enemy e = col.GetComponent<Enemy>();
         if(e){
             e.Hit(damage);
+            return;
+        }
+        Player p = col.GetComponent<Player>();
+        if(p){
+            p.Hit();
+            return;
         }
     }
 }
