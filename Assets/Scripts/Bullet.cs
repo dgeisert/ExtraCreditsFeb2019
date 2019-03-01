@@ -12,14 +12,15 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(transform.forward * speed * Time.deltaTime);
+        transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
 
 
-    void OnTriggerEnter(Collider col){
-        Player p = col.GetComponent<Player>();
+    void OnCollisionEnter(Collision col){
+        Player p = col.collider.GetComponent<Player>();
         if(p){
             p.GameOver();
         }
+        Destroy(gameObject);
     }
 }

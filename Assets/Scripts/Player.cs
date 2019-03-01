@@ -7,15 +7,15 @@ public class Player : MonoBehaviour
     public float speed = 2;
     public Camera camera;
     public GameObject Bullet;
-    void Start()
-    {
-
-    }
+    public CharacterController cc;
+    public Animator anim;
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        transform.position += new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized * speed * Time.deltaTime;
+        Vector3 move = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized * speed * Time.fixedDeltaTime;
+        cc.SimpleMove(move);
+        anim.SetFloat("Speed", move.magnitude);
         RaycastHit hit;
         if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, 50))
         {
