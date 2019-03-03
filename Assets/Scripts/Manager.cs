@@ -7,15 +7,16 @@ public class Manager : MonoBehaviour
     public static Manager instance;
     public static int dayNight = 0;
     public static int season = 0;
-    public static List<SeasonsObject> seasonsObjects = new List<SeasonsObject>();
     public float timeInDay = 30;
     public Animator anim;
     float dayTime;
+    public Room currentRoom;
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
         dayTime = Time.time;
-        Set();
+        currentRoom.Set();
     }
 
     // Update is called once per frame
@@ -47,14 +48,6 @@ public class Manager : MonoBehaviour
         }
         anim.SetInteger("DayNight", dayNight);
         anim.SetBool("Switch", true);
-        Set();
-    }
-
-    void Set()
-    {
-        foreach (SeasonsObject so in seasonsObjects)
-        {
-            so.Set();
-        }
+        currentRoom.Set();
     }
 }

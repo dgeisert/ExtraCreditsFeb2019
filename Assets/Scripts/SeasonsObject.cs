@@ -8,7 +8,7 @@ public class SeasonsObject : MonoBehaviour
 
     void Start()
     {
-        Manager.seasonsObjects.Add(this);
+        GetComponentInParent<Room>().seasonsObjects.Add(this);
     }
     public void Set()
     {

@@ -9,17 +9,22 @@ public class Attack : MonoBehaviour
     public GameObject parent;
     void Start()
     {
-        Destroy(parent != null ? parent : gameObject, lifetime);
+        if (lifetime > 0)
+        {
+            Destroy(parent != null ? parent : gameObject, lifetime);
+        }
     }
     void OnTriggerEnter(Collider col)
     {
         Enemy e = col.GetComponent<Enemy>();
-        if(e){
+        if (e)
+        {
             e.Hit(damage);
             return;
         }
         Player p = col.GetComponent<Player>();
-        if(p){
+        if (p)
+        {
             p.Hit();
             return;
         }

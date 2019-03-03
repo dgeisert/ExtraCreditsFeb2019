@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 679910142}
   - component: {fileID: 679910141}
   - component: {fileID: 679910140}
-  - component: {fileID: 679910139}
   m_Layer: 11
   m_Name: Head
   m_TagString: Untagged
@@ -4429,20 +4428,6 @@ MonoBehaviour:
   m_selectedFaces: 
   m_SelectedEdges: []
   m_selectedTriangles: 
---- !u!64 &679910139
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 679910138}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 0}
 --- !u!1 &1488562651
 GameObject:
   m_ObjectHideFlags: 0
@@ -4456,7 +4441,6 @@ GameObject:
   - component: {fileID: 1488562655}
   - component: {fileID: 1488562654}
   - component: {fileID: 1488562653}
-  - component: {fileID: 1488562652}
   m_Layer: 11
   m_Name: Body
   m_TagString: Untagged
@@ -6452,20 +6436,6 @@ MonoBehaviour:
   m_selectedFaces: 
   m_SelectedEdges: []
   m_selectedTriangles: 
---- !u!64 &1488562652
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1488562651}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 0}
 --- !u!1 &539569985288193994
 GameObject:
   m_ObjectHideFlags: 0
@@ -6521,7 +6491,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3726255819992904809}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1488562657}
@@ -11422,6 +11392,7 @@ GameObject:
   - component: {fileID: 9092582926696760247}
   - component: {fileID: 9092582926696760251}
   - component: {fileID: 108045315}
+  - component: {fileID: 854758707}
   m_Layer: 11
   m_Name: Player
   m_TagString: Untagged
@@ -11437,7 +11408,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9092582926696760250}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.02843216, y: 0.5, z: -0.12600005}
+  m_LocalPosition: {x: -0.02843216, y: 0, z: -0.12600005}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4118663920552578899}
@@ -11460,12 +11431,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 150
   camera: {fileID: 0}
-  Bullet: {fileID: 5018039158029209213, guid: 39119dff404d14a5a8f2c688704c7f9e, type: 3}
   cc: {fileID: 9092582926696760251}
   anim: {fileID: 108045315}
   dashPoof: {fileID: 6352460012780792944}
   dashLine: {fileID: 539569985288193994}
   weapon: {fileID: 0}
+  health: 3
+  maxHealth: 3
 --- !u!143 &9092582926696760251
 CharacterController:
   m_ObjectHideFlags: 0
@@ -11483,7 +11455,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!95 &108045315
 Animator:
   serializedVersion: 3
@@ -11503,3 +11475,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!136 &854758707
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9092582926696760250}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.9, z: 0}

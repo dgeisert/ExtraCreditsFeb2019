@@ -7,7 +7,6 @@ public class Player : MonoBehaviour
     public static Player instance;
     public float speed = 2;
     public Camera camera;
-    public GameObject Bullet;
     public CharacterController cc;
     public Animator anim;
     float lastDash = -3;
@@ -59,7 +58,7 @@ public class Player : MonoBehaviour
 
     public void GameOver()
     {
-        transform.position = Vector3.up * 0.5f;
+        Destroy(gameObject);
     }
 
     void Interact()
@@ -85,11 +84,51 @@ public class Player : MonoBehaviour
             weaponInteractTime = Time.time;
         }
     }
+    void OnTriggerEnter(Collider col)
+    {
+        switch (col.name)
+        {
+            case "UpTrigger":
+                StartCoroutine(ShiftView(Vector2Int.up * RoomGraph.instance.spacingZ));
+                break;
+            case "DownTrigger":
+                StartCoroutine(ShiftView(Vector2Int.down * RoomGraph.instance.spacingZ));
+                break;
+            case "RightTrigger":
+                StartCoroutine(ShiftView(Vector2Int.right * RoomGraph.instance.spacingX));
+                break;
+            case "LeftTrigger":
+                StartCoroutine(ShiftView(Vector2Int.left * RoomGraph.instance.spacingX));
+                break;
+            default:
+                break;
+        }
+    }
+
+    IEnumerator ShiftView(Vector2Int dir)
+    {
+        Manager.instance.currentRoom.gameObject.SetActive(false);
+        Manager.instance.currentRoom = RoomGraph.instance.rooms[Manager.instance.currentRoom.pos + dir];
+        Manager.instance.currentRoom.gameObject.SetActive(true);
+        yield return null;
+        Manager.instance.currentRoom.Set();
+        Vector3 pos = camera.transform.position + new Vector3(
+            dir.x,
+            0,
+            dir.y);
+        while (Vector3.Distance(camera.transform.position, pos) > 0.1f)
+        {
+            camera.transform.position += ((pos - camera.transform.position) * Time.deltaTime * 5f);
+            yield return null;
+        }
+        yield return null;
+    }
 
     public void Hit()
     {
         if (!dash)
         {
+            Debug.Log("PlayerHit");
             health--;
             if (health <= 0)
             {

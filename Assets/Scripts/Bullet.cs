@@ -21,8 +21,14 @@ public class Bullet : Attack
     void OnCollisionEnter(Collision col)
     {
         Enemy e = col.collider.GetComponent<Enemy>();
-        if(e){
+        if (e)
+        {
             e.Hit(damage);
+        }
+        Player p = col.collider.GetComponent<Player>();
+        if (p)
+        {
+            p.Hit();
         }
         Destroy(gameObject);
     }
