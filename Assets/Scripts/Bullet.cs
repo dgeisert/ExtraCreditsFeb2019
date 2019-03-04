@@ -6,11 +6,6 @@ public class Bullet : Attack
 {
     public float speed = 5;
 
-    void Start()
-    {
-        transform.SetParent(null);
-    }
-
     // Update is called once per frame
     void Update()
     {

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -18,6 +19,13 @@ public class Player : MonoBehaviour
     public float health = 3;
     public float maxHealth = 3;
     bool dash = false;
+    float lastHit;
+    public Image[] hearts;
+    bool[] gemsCollected = new bool[4];
+    public Color[] gemColors;
+    public Image[] gemImages;
+    bool viewShifting = false;
+    public GameObject gemChime, ouch;
     void Start()
     {
         instance = this;
@@ -32,14 +40,22 @@ public class Player : MonoBehaviour
         cc.SimpleMove(move);
         anim.SetFloat("Speed", move.magnitude);
         RaycastHit hit;
-        if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, 50))
+        if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, 50, 1 << 13))
         {
-            transform.LookAt(new Vector3(hit.point.x, 0.5f, hit.point.z));
+            transform.LookAt(new Vector3(hit.point.x, 0, hit.point.z));
+            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
         }
         if (weapon)
         {
             weapon.MouseButton(Input.GetMouseButton(0), Input.GetMouseButton(1));
         }
+        if (weaponInteractTime + 0.1f < Time.time)
+        {
+            toEquip = null;
+        }
+    }
+    void Update()
+    {
         if (Input.GetKeyDown(KeyCode.Space) && lastDash + dashCooldown < Time.time)
         {
             lastDash = Time.time;
@@ -50,15 +66,12 @@ public class Player : MonoBehaviour
         {
             Interact();
         }
-        if (weaponInteractTime + 0.1f < Time.time)
-        {
-            toEquip = null;
-        }
     }
 
     public void GameOver()
     {
-        // Destroy(gameObject);
+        Manager.instance.GameOver();
+        this.enabled = false;
     }
 
     void Interact()
@@ -89,16 +102,24 @@ public class Player : MonoBehaviour
         switch (col.name)
         {
             case "UpTrigger":
+                StopAllCoroutines();
                 StartCoroutine(ShiftView(Vector2Int.up * RoomGraph.instance.spacingZ));
                 break;
             case "DownTrigger":
+                StopAllCoroutines();
                 StartCoroutine(ShiftView(Vector2Int.down * RoomGraph.instance.spacingZ));
                 break;
             case "RightTrigger":
+                StopAllCoroutines();
                 StartCoroutine(ShiftView(Vector2Int.right * RoomGraph.instance.spacingX));
                 break;
             case "LeftTrigger":
+                StopAllCoroutines();
                 StartCoroutine(ShiftView(Vector2Int.left * RoomGraph.instance.spacingX));
+                break;
+            case "Gem":
+                Collect(col.GetComponent<Collectible>().gemNumber);
+                Destroy(col.gameObject);
                 break;
             default:
                 break;
@@ -112,10 +133,11 @@ public class Player : MonoBehaviour
         Manager.instance.currentRoom.gameObject.SetActive(true);
         yield return null;
         Manager.instance.currentRoom.Set();
-        Vector3 pos = camera.transform.position + new Vector3(
-            dir.x,
+        Vector3 pos = Manager.instance.currentRoom.transform.position
+        + new Vector3(
             0,
-            dir.y);
+            15.5f,
+            -13.83f);
         while (Vector3.Distance(camera.transform.position, pos) > 0.1f)
         {
             camera.transform.position += ((pos - camera.transform.position) * Time.deltaTime * 5f);
@@ -124,12 +146,35 @@ public class Player : MonoBehaviour
         yield return null;
     }
 
+    void Collect(int i)
+    {
+        gemChime.SetActive(false);
+        gemChime.SetActive(true);
+        gemsCollected[i] = true;
+        gemImages[i].color = gemColors[i];
+        bool complete = true;
+        foreach (bool b in gemsCollected)
+        {
+            complete = complete && b;
+        }
+        if (complete)
+        {
+            Manager.instance.Victory();
+        }
+    }
+
     public void Hit()
     {
-        if (!dash)
+        if (!dash && lastHit + 1 < Time.time)
         {
-            Debug.Log("PlayerHit");
+            ouch.SetActive(false);
+            ouch.SetActive(true);
+            lastHit = Time.time;
             health--;
+            for (int i = Mathf.Max(0, Mathf.RoundToInt(health)); i < hearts.Length; i++)
+            {
+                hearts[i].color = Color.black;
+            }
             if (health <= 0)
             {
                 GameOver();

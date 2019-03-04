@@ -30,7 +30,8 @@ public class Weapon : MonoBehaviour
         {
             leftIndex = 0;
         }
-        Instantiate(leftAttacks[leftIndex], transform.position + transform.forward, transform.rotation, transform);
+        Transform parent = leftAttacks[leftIndex].GetComponentInChildren<Attack>().unParent ? null : transform;
+        Instantiate(leftAttacks[leftIndex], transform.position + transform.forward, transform.rotation, parent);
         leftIndex++;
         if (leftIndex >= leftAttacks.Length)
         {
@@ -43,7 +44,8 @@ public class Weapon : MonoBehaviour
         {
             rightIndex = 0;
         }
-        Instantiate(rightAttacks[rightIndex], transform.position + transform.forward, transform.rotation, transform);
+        Transform parent = rightAttacks[rightIndex].GetComponentInChildren<Attack>().unParent ? null : transform;
+        Instantiate(rightAttacks[rightIndex], transform.position + transform.forward, transform.rotation, parent);
         rightIndex++;
         if (rightIndex >= rightAttacks.Length)
         {

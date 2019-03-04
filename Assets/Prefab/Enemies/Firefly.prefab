@@ -7882,10 +7882,8 @@ MonoBehaviour:
     type: 3}
   angles:
   - -40
-  - -20
-  - 0
-  - 20
   - 40
+  - 0
 --- !u!143 &8050856310695813097
 CharacterController:
   m_ObjectHideFlags: 0

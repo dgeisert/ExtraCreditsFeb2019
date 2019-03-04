@@ -7,6 +7,7 @@ public class Attack : MonoBehaviour
     public float lifetime = 0.05f;
     public float damage = 1;
     public GameObject parent;
+    public bool unParent = false;
     void Start()
     {
         if (lifetime > 0)

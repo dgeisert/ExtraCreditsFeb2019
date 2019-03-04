@@ -40,6 +40,10 @@ public class Enemy : MonoBehaviour
     }
     void FixedUpdate()
     {
+        if (Manager.instance.isGameover)
+        {
+            return;
+        }
         switch (state)
         {
             case 0:
