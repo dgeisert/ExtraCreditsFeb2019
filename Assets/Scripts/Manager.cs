@@ -82,7 +82,7 @@ public class Manager : MonoBehaviour
 
     void Transition()
     {
-        if (transitionTime + 3f < Time.time)
+        if (transitionTime + 1f < Time.time)
         {
             changeSeasonChime.SetActive(false);
             changeSeasonChime.SetActive(true);
