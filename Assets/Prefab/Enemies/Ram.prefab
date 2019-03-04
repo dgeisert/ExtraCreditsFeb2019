@@ -358,7 +358,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5114356713173756587
 Transform:
   m_ObjectHideFlags: 0
@@ -407,9 +407,11 @@ MonoBehaviour:
   telegraphTime: 2
   attackTime: 2
   attackCooldown: 1
-  season: 0
+  season: -20
   dayNight: 0
-  strict: 0
+  strict: 1
+  projectile: {fileID: 0}
+  angles: []
 --- !u!143 &5114356713173756582
 CharacterController:
   m_ObjectHideFlags: 0
@@ -419,7 +421,7 @@ CharacterController:
   m_GameObject: {fileID: 5114356713173756580}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Height: 1
   m_Radius: 0.5
@@ -442,7 +444,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 42
   m_CollisionDetection: 0
 --- !u!95 &6377739360846619166
 Animator:

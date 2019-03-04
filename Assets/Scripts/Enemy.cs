@@ -97,6 +97,10 @@ public class Enemy : MonoBehaviour
             default:
                 break;
         }
+        if (cc.enabled)
+        {
+            transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+        }
     }
     void Die()
     {
@@ -108,16 +112,18 @@ public class Enemy : MonoBehaviour
     }
     IEnumerator Dormant()
     {
+        yield return null;
         cc.enabled = false;
         while (transform.position.y > -2)
         {
-            transform.position -= Vector3.up * Time.deltaTime * 4;
+            transform.position -= Vector3.up * 0.1f;
             yield return null;
         }
         gameObject.SetActive(false);
     }
     IEnumerator Emerge()
     {
+        yield return null;
         cc.enabled = false;
         transform.position = new Vector3(transform.position.x, -2, transform.position.z);
         while (transform.position.y < 0)
@@ -143,8 +149,8 @@ public class Enemy : MonoBehaviour
     }
     public void Set()
     {
-        Active(Manager.season == season || season == -1,
-        Manager.dayNight == dayNight || dayNight == -1);
+        Active(Manager.season == season || season < 0,
+        Manager.dayNight == dayNight || dayNight < 0);
     }
 
     void OnEnable()

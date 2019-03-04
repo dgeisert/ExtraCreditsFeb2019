@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
 
     public void GameOver()
     {
-        Destroy(gameObject);
+        // Destroy(gameObject);
     }
 
     void Interact()

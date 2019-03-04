@@ -50,7 +50,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1066331011595928217
 Transform:
   m_ObjectHideFlags: 0
@@ -96,22 +96,17 @@ MonoBehaviour:
   room: {fileID: 0}
   speed: 50
   speedDuringAttack: 0
-  speedMod: 1
+  speedMod: 0.75
   attackDistance: 10
   telegraphTime: 1
   attackTime: 2
   attackCooldown: 1
   season: 0
-  dayNight: 0
-  strict: 0
+  dayNight: -20
+  strict: 1
   projectile: {fileID: 6560363126280177806, guid: f3688740620d84babba1515477267225,
     type: 3}
-  angles:
-  - -40
-  - -20
-  - 0
-  - 20
-  - 40
+  angles: []
 --- !u!143 &1066331011595928212
 CharacterController:
   m_ObjectHideFlags: 0
@@ -121,7 +116,7 @@ CharacterController:
   m_GameObject: {fileID: 1066331011595928214}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Height: 1
   m_Radius: 0.5
@@ -144,7 +139,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 42
   m_CollisionDetection: 0
 --- !u!95 &1204658039919577644
 Animator:

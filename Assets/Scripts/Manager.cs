@@ -9,23 +9,20 @@ public class Manager : MonoBehaviour
     public static int season = 0;
     public float timeInDay = 30;
     public Animator anim;
-    float dayTime;
     public Room currentRoom;
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
-        dayTime = Time.time;
-        currentRoom.Set();
+        currentRoom.Invoke("Set", 0.1f);
     }
 
     // Update is called once per frame
     void Update()
     {
         anim.SetBool("Switch", false);
-        if (dayTime + timeInDay < Time.time)
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            dayTime = Time.time;
             Transition();
         }
     }

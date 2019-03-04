@@ -47,11 +47,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldownLeft: 0.5
-  cooldownRight: 2
+  cooldownRight: 5
   leftAttacks:
   - {fileID: 1384324347247495568, guid: 4654fc2daddd4445eba1c816b468ab7e, type: 3}
   rightAttacks:
-  - {fileID: 1686235335599217521, guid: 99aeb57f2f5924e6dbef72393ec803a6, type: 3}
+  - {fileID: 8498835627164452932, guid: e7bea5e37b9844a3fb4c7ec5b960dc80, type: 3}
   area: {fileID: 3339096432042155652}
   highlight: {fileID: 8083386253058518202}
 --- !u!65 &3339096432042155652
